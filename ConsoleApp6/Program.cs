@@ -3,8 +3,6 @@ using System.Collections.Generic;
 
 namespace ConsoleApp6
 {
-    
-
     class Program
     {
         static void Main(string[] args)
@@ -25,32 +23,40 @@ namespace ConsoleApp6
         {
             int[] result = new int[a.Length + b.Length];
 
-            int length1 = a.Length;
+            int i = 0; // індекс масиву а
+            int j = 0; // індекс масиву b
+            int k = 0; // індекс результуючого масиву
 
-            // заносимо перший масив в результуючий масив
-            for(int i = 0; i < a.Length; i++)
+            while(i < a.Length || j < b.Length)
             {
-                result[i] = a[i];
-            }
-
-            // заносимо другий масив в результуючий масив
-            for (int i = 0; i < b.Length; i++)
-            {
-                result[length1 + i] = b[i];
-            }
-
-            // сортировка бульбашкою
-            int temp;
-            for (int i = 0; i < result.Length - 1; i++)
-            {
-                for (int j = i + 1; j < result.Length; j++)
+                if(i < a.Length && j < b.Length)
                 {
-                    if (result[i] > result[j])
+                    if(a[i] < b[j])
                     {
-                        temp = result[i];
-                        result[i] = result[j];
-                        result[j] = temp;
+                        result[k] = a[i];
+                        i++;
+                        k++;
                     }
+                    else
+                    {
+                        result[k] = b[j];
+                        j++;
+                        k++;
+                    }
+                }
+                // якщо дойшли до кінця першого масиву, то заносимо решту другого в результуючий
+                else if (i == a.Length)  
+                {
+                    result[k] = b[j];
+                    j++;
+                    k++;
+                }
+                // якщо дойшли до кінця другого масиву, то заносимо решту першого в результуючий
+                else if (j == b.Length)
+                {
+                    result[k] = b[i];
+                    i++;
+                    k++;
                 }
             }
 
